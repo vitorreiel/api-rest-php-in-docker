@@ -13,7 +13,7 @@ resource "google_compute_instance" "vm_with_docker" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-pro-cloud/ubuntu-2204-lts"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
       size = 30 # Define 30GB de armazenamento interno
     }
   }
