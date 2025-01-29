@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS simple_api_db;
+USE simple_api_db;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,

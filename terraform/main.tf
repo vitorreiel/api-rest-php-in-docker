@@ -53,7 +53,7 @@ resource "google_compute_instance" "vm_with_docker" {
     sudo add-apt-repository -y ppa:ondrej/php
     sudo apt-get update
     sudo apt-get install -y php8.1 php8.1-cli php8.1-mbstring php8.1-xml unzip curl
-    sudo apt-get install -y composer
+    sudo apt install -y composer
 
     # Installing Node.js (v20) and NPM
     curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
