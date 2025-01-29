@@ -1,0 +1,46 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE:
+      MYSQL_ROOT_USER:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      TZ:
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/database:/docker-entrypoint-initdb.d
+    networks:
+      - production-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/frontend.Dockerfile
+    image: api-rest-php-frontend
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - production-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/backend.Dockerfile
+    container_name: backend
+    image: api-rest-php-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - production-network
+
+networks:
+  production-network:
+    driver: bridge
