@@ -1,0 +1,75 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TIMEZONE}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/database:/docker-entrypoint-initdb.d
+    networks:
+      - production-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/frontend.Dockerfile
+    image: api-rest-php-frontend
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - production-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/backend.Dockerfile
+    image: api-rest-php-backend
+    container_name: backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - production-network
+
+  prometheus:
+    image: 'prom/prometheus:latest'
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - '9090:9090'
+    networks:
+      - production-network
+
+  node-exporter:
+    image: 'bitnami/node-exporter:1.5.0'
+    container_name: node-exporter
+    restart: unless-stopped
+    ports:
+      - '9100:9100'
+    networks:
+      - production-network
+
+  grafana:
+    image: 'grafana/grafana:9.3.6'
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    networks:
+      - production-network
+
+networks:
+  production-network:
+    driver: bridge
