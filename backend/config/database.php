@@ -1,7 +1,7 @@
 <?php
 class Database {
     // Credenciais do banco de dados
-    private $host = "127.0.0.1";
+    private $host = "mysql";
     private $db_name = "simple_api_db";
     private $username = "root";
     private $password = "root_pass";
