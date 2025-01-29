@@ -4,12 +4,12 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE:
-      MYSQL_ROOT_USER:
-      MYSQL_ROOT_PASSWORD:
-      MYSQL_USER:
-      MYSQL_PASSWORD:
-      TZ:
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TIMEZONE}
     ports:
       - "3306:3306"
     volumes:
