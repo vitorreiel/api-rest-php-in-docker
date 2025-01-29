@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s  # Tempo entre cada coleta de métricas
+
+scrape_configs:
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['<INSTANCE_IP>:9100']
+
+  - job_name: 'backend'
+    static_configs:
+      - targets: ['<INSTANCE_IP>:8000']
