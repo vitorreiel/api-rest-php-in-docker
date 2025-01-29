@@ -1,4 +1,5 @@
 backend/vendor/*
+backend/composer.lock
 cypress/node_modules/*
 cypress/package-lock.json
 terraform/.terraform/*
