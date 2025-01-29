@@ -1,0 +1,18 @@
+{
+  "name": "e2e-tests",
+  "version": "1.0.0",
+  "description": "CASE frontend com Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run",
+    "cypress:open": "npx cypress open",
+    "cypress:run": "npx cypress run",
+    "cypress:verify": "npx cypress verify"
+  },
+  "dependencies": {
+    "cypress": "^14.0.0"
+  },
+  "devDependencies": {},
+  "author": "Vitor Reiel",
+  "license": "MIT"
+}
