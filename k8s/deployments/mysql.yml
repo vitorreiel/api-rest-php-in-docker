@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db
+  name: mysql
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+          - name: MYSQL_DATABASE
+            value: "simple_api_db"
+          - name: MYSQL_ROOT_PASSWORD
+            value: "root_pass"
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: 250m 
+              memory: 1Gi 
+            limits:
+              cpu: 500m
+              memory: 2Gi
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql
+            - name: mysql-config
+              mountPath: /docker-entrypoint-initdb.d/
+      volumes:
+        - name: db-data
+          emptyDir: {}
+        - name: mysql-config
+          configMap:
+            name: mysql-config
