@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: vitorreiel/api-rest-php-backend:1.0
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: 250m 
+              memory: 1Gi 
+            limits:
+              cpu: 500m
+              memory: 2Gi
